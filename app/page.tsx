@@ -312,9 +312,9 @@ export default function Home() {
               variants={fadeUp}
               className="text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight mb-5"
             >
-              You already have the tools.
+              Your bills don't live in one place.
               <br />
-              <span className="text-[#6C7280] font-normal">None of them talk to each other.</span>
+              <span className="text-[#6C7280] font-normal">Neither does the stress.</span>
             </motion.h2>
             <motion.p variants={fadeUp} className="text-[#9BA1AD] text-base leading-relaxed">
               Most people track recurring commitments across 4–5 different places.
