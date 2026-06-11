@@ -38,6 +38,14 @@ export async function POST(req: Request) {
 
     await connectToDatabase();
 
+    // Drop the stale non-sparse email_1 index left from the old schema.
+    // This is safe to call repeatedly — it's a no-op if the index is already gone.
+    try {
+      await Waitlist.collection.dropIndex("email_1");
+    } catch {
+      // index doesn't exist — nothing to do
+    }
+
     const existingEntry = await Waitlist.findOne({ mobileNumber });
     if (existingEntry) {
       return NextResponse.json(

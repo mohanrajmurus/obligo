@@ -9,13 +9,22 @@ import { trackEvent } from "@/components/AnalyticsTracker";
 
 const OCCUPATIONS = ["Salaried", "Self-employed", "Student", "Other"] as const;
 
+const COUNTRY_CODES = [
+  { code: "+91", flag: "🇮🇳" },
+  { code: "+1",  flag: "🇺🇸" },
+  { code: "+44", flag: "🇬🇧" },
+  { code: "+971",flag: "🇦🇪" },
+  { code: "+65", flag: "🇸🇬" },
+  { code: "+61", flag: "🇦🇺" },
+] as const;
+
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
   mobileNumber: z
     .string()
-    .min(10, "Enter a valid WhatsApp number")
-    .regex(/^\+?[\d\s\-()]{10,}$/, "Enter a valid WhatsApp number"),
-  occupation: z.enum(OCCUPATIONS).optional(),
+    .min(7, "Enter a valid WhatsApp number")
+    .regex(/^\d{7,15}$/, "Digits only, no spaces or dashes"),
+  occupation: z.enum(OCCUPATIONS).optional().catch(undefined),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -50,6 +59,7 @@ export default function WaitlistForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [countryCode, setCountryCode] = useState("+91");
 
   const {
     register,
@@ -66,7 +76,7 @@ export default function WaitlistForm() {
       const response = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, mobileNumber: countryCode + data.mobileNumber }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Failed to submit. Please try again.");
@@ -103,13 +113,29 @@ export default function WaitlistForm() {
         </Field>
 
         <Field label="WhatsApp Number" error={errors.mobileNumber?.message}>
-          <input
-            {...register("mobileNumber")}
-            type="tel"
-            placeholder="7845941621"
-            disabled={isSubmitting}
-            className={inputClass}
-          />
+          <div className="flex rounded-lg border border-[rgba(255,255,255,0.08)] bg-[#252932] focus-within:border-[#4F8CFF]/40 focus-within:ring-2 focus-within:ring-[#4F8CFF]/15 transition-all">
+            <select
+              value={countryCode}
+              onChange={(e) => setCountryCode(e.target.value)}
+              disabled={isSubmitting}
+              className="shrink-0 bg-transparent border-r border-[rgba(255,255,255,0.08)] pl-3 pr-2 py-3 text-sm text-white outline-none cursor-pointer disabled:opacity-50 appearance-none"
+              aria-label="Country code"
+            >
+              {COUNTRY_CODES.map(({ code, flag }) => (
+                <option key={code} value={code} className="bg-[#252932] text-white">
+                  {flag} {code}
+                </option>
+              ))}
+            </select>
+            <input
+              {...register("mobileNumber")}
+              type="tel"
+              inputMode="numeric"
+              placeholder="9876543210"
+              disabled={isSubmitting}
+              className="flex-1 min-w-0 bg-transparent px-3 py-3 text-sm text-white placeholder:text-[#6C7280] outline-none disabled:opacity-50"
+            />
+          </div>
         </Field>
 
         <Field label="Occupation" optional error={errors.occupation?.message}>

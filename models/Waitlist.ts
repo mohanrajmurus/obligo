@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 export interface IWaitlist extends mongoose.Document {
   name?: string;
-  email?: string;
   mobileNumber: string;
   occupation?: string;
   createdAt: Date;
@@ -13,13 +12,6 @@ const WaitlistSchema = new mongoose.Schema<IWaitlist>({
     type: String,
     required: [true, "Name is required"],
     trim: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-    sparse: true,
-    trim: true,
-    lowercase: true,
   },
   mobileNumber: {
     type: String,
