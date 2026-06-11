@@ -272,7 +272,7 @@ export default function Home() {
                   onClick={() => trackEvent("hero_cta_clicked", { button: "get_early_access" })}
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#4F8CFF] text-white font-semibold text-sm px-6 py-3.5 hover:bg-[#3b6bd1] transition-colors"
                 >
-                  Get Early Access
+                  Join Waitlist
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
@@ -629,7 +629,7 @@ export default function Home() {
               variants={fadeUp}
               className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4"
             >
-              Get Early Access
+              Join Waitlist
             </motion.h2>
             <motion.p variants={fadeUp} className="text-[#9BA1AD] text-base leading-relaxed">
               Be among the first to use Obligo and never get caught off guard by

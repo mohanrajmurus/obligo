@@ -169,7 +169,7 @@ export default function WaitlistForm() {
               Joining…
             </>
           ) : (
-            "Get Early Access"
+            "Join Waitlist"
           )}
         </button>
       </form>

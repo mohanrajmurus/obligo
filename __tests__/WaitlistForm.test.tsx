@@ -21,7 +21,7 @@ function getForm() {
     // two comboboxes: [0] = country code, [1] = occupation
     countryCode: () => screen.getAllByRole("combobox")[0],
     occupation: () => screen.getAllByRole("combobox")[1],
-    submit: () => screen.getByRole("button", { name: /get early access/i }),
+    submit: () => screen.getByRole("button", { name: /join waitlist/i }),
   };
 }
 
