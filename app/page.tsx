@@ -622,19 +622,19 @@ export default function Home() {
             variants={stagger}
             className="text-center max-w-lg mx-auto mb-10"
           >
+            <motion.div variants={fadeUp} className="mb-5">
+              <WaitlistCount />
+            </motion.div>
             <motion.h2
               variants={fadeUp}
               className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4"
             >
               Get Early Access
             </motion.h2>
-            <motion.p variants={fadeUp} className="text-[#9BA1AD] text-base leading-relaxed mb-4">
+            <motion.p variants={fadeUp} className="text-[#9BA1AD] text-base leading-relaxed">
               Be among the first to use Obligo and never get caught off guard by
               a bill again.
             </motion.p>
-            <motion.div variants={fadeUp}>
-              <WaitlistCount />
-            </motion.div>
           </motion.div>
 
           <motion.div

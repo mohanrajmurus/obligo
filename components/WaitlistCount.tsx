@@ -14,9 +14,11 @@ export default function WaitlistCount() {
 
   if (count === null || count === 0) return null;
 
+  const display = count < 10 ? 10 : count;
+
   return (
-    <p className="text-sm text-[#4F8CFF] font-medium">
-      {count} {count === 1 ? "person" : "people"} already on the waitlist
-    </p>
+    <div className="inline-flex items-center gap-2 bg-[#FFF8EC] border border-[#F5A623] rounded-full px-4 py-2 text-sm font-semibold text-[#F5A623]">
+      🔥 <span>{display} people already joined</span>
+    </div>
   );
 }
