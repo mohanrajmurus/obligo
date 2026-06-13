@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { track } from "@vercel/analytics";
 
-// Generic event tracking function that can be exported and hooked up to actual analytics later
-export const trackEvent = (eventName: string, properties?: Record<string, any>) => {
-  // Replace this with actual analytics provider (e.g., PostHog, Vercel Analytics)
-  console.log(`[Analytics Event] ${eventName}`, properties || {});
+export const trackEvent = (eventName: string, properties?: Record<string, string | number | boolean | null>) => {
+  track(eventName, properties);
 };
 
 export default function AnalyticsTracker() {

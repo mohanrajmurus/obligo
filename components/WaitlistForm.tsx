@@ -81,7 +81,7 @@ export default function WaitlistForm() {
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Failed to submit. Please try again.");
       setIsSuccess(true);
-      trackEvent("waitlist_submitted", { occupation: data.occupation });
+      trackEvent("waitlist_submitted", { occupation: data.occupation ?? null });
     } catch (error: unknown) {
       setErrorMessage(error instanceof Error ? error.message : "Something went wrong.");
     } finally {
